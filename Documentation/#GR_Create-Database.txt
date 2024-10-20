@@ -1,0 +1,148 @@
+***********************************************************************
+	
+	ΠΑΝΕΠΙΣΤΗΜΙΟ ΔΥΤΙΚΗΣ ΑΤΤΙΚΗΣ
+	ΤΜΗΜΑ ΜΗΧΑΝΙΚΩΝ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΥΠΟΛΟΓΙΣΤΩΝ
+	ΕΡΓΑΣΤΗΡΙΟ ΣΧΕΔΙΑΣΗ ΨΗΦΙΑΚΩΝ ΣΥΣΤΗΜΑΤΩΝ
+	
+	1η Εργασία : Δημιουργία και διαχείριση βάσης δεδομένων, δημιουργία μοντέλου βάσης δεδομένων
+
+	Ονοματεπώνυμο : Αθανασίου Βασίλειος Ευάγγελος
+	Αριθμός Μητρώου : 19390005
+	Εξάμηνο Φοιτητή : 8ο
+	Πρόγραμμα Σπουδών : ΠΑΔΑ
+	Τμήμα Εργαστηρίου : Τμήμα [2.1] Τετάρτη 15:00 - 16:00
+	Υπεύθυνος Εργαστηρίου : Τσολακίδης Αναστάσιος
+	Ημερομηνία Παράδοσης : 22/5/2023
+
+***********************************************************************
+
+1. Να καταγράψετε τις εντολές δημιουργίας της ΒΔ, των πινάκων και τις εντολές 
+καταχώρησης δεδομένων, καθώς και όλες τις εντολές που απαιτούνται για την 
+επαλήθευση της εκτέλεσής τους (select, describe, κ.λπ.) 
+
+CREATE IF NOT EXISTS DATABASE new_personnel;
+USE new_personnel;
+
+CREATE TABLE IF NOT EXISTS DEPT(DEPTNO INT(2) NOT NULL, DNAME VARCHAR(14), LOC VARCHAR(14), PRIMARY KEY(DEPTNO));
+DESCRIBE DEPT;
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (10, 'ACCOUNTING', 'ATHENS');
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (20, 'SALES', 'LONDON');
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (30, 'RESEARCH', 'ATHENS');
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'PAYROLL', 'LONDON');
+SELECT * FROM DEPT;
+
+CREATE TABLE IF NOT EXISTS EMP (EMPNO INT(2) NOT NULL, ENAME VARCHAR(14), JOB VARCHAR(14), HIREDATE DATE, MGR INT(2), SAL INT(4), COMM INT(3), DEPTNO INT(2) NOT NULL, PRIMARY KEY(EMPNO), FOREIGN KEY(DEPTNO) REFERENCES DEPT(DEPTNO));
+DESCRIBE EMP;
+INSERT INTO EMP (EMPNO, ENAME, JOB, HIREDATE, MGR, SAL, COMM, DEPTNO) VALUES (10, 'CODD', 'ANALYST', '89/1/1', 15, 3000, NULL, 10);
+INSERT INTO EMP (EMPNO, ENAME, JOB, HIREDATE, MGR, SAL, COMM, DEPTNO) VALUES (15, 'ELMASRI', 'ANALYST', '95/5/2', 15, 1200, 150, 10);
+INSERT INTO EMP (EMPNO, ENAME, JOB, HIREDATE, MGR, SAL, COMM, DEPTNO) VALUES (20, 'NAVATHE', 'SALESMAN', '77/7/7', 20, 2000, NULL, 20);
+INSERT INTO EMP (EMPNO, ENAME, JOB, HIREDATE, MGR, SAL, COMM, DEPTNO) VALUES (30, 'DATE', 'SALESMAN', '04/5/4', 15, 1800, 200, 10);
+SELECT * FROM EMP;
+
+CREATE TABLE IF NOT EXISTS PROJ (PROJ_CODE INT(3) NOT NULL, DESCRIPTION VARCHAR(14), PRIMARY KEY(PROJ_CODE));
+DESCRIBE PROJ;
+INSERT INTO PROJ (PROJ_CODE, DESCRIPTION) VALUES (100, 'PAYROLL');
+INSERT INTO PROJ (PROJ_CODE, DESCRIPTION) VALUES (200, 'PERSONNEL');
+INSERT INTO PROJ (PROJ_CODE, DESCRIPTION) VALUES (300, 'SALES');
+SELECT * FROM PROJ;
+
+CREATE TABLE IF NOT EXISTS ASSIGN (EMPNO INT(2) NOT NULL, PROJ_CODE INT(3) NOT NULL, A_TIME INT(3), PRIMARY KEY(EMPNO, PROJ_CODE), FOREIGN KEY(EMPNO) REFERENCES EMP(EMPNO), FOREIGN KEY(PROJ_CODE) REFERENCES PROJ(PROJ_CODE));
+DESCRIBE ASSIGN;
+INSERT INTO ASSIGN (EMPNO, PROJ_CODE, A_TIME) VALUES (10, 100, 40);
+INSERT INTO ASSIGN (EMPNO, PROJ_CODE, A_TIME) VALUES (10, 200, 60);
+INSERT INTO ASSIGN (EMPNO, PROJ_CODE, A_TIME) VALUES (15, 100, 100);
+INSERT INTO ASSIGN (EMPNO, PROJ_CODE, A_TIME) VALUES (20, 200, 100);
+INSERT INTO ASSIGN (EMPNO, PROJ_CODE, A_TIME) VALUES (30, 100, 100);
+SELECT * FROM ASSIGN;
+
+---------------------------------------------------------------------------------------------------
+2. Να καταγράψετε την εικόνα των πινάκων σας, όπως αυτοί εμφανίζονται στην 
+βάση (δομή και δεδομένα)
+
+DESCRIBE DEPT;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| DEPTNO | int         | NO   | PRI | NULL    |       |
+| DNAME  | varchar(14) | YES  |     | NULL    |       |
+| LOC    | varchar(14) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+SELECT * FROM DEPT;
++--------+------------+--------+
+| DEPTNO | DNAME      | LOC    |
++--------+------------+--------+
+|     10 | ACCOUNTING | ATHENS |
+|     20 | SALES      | LONDON |
+|     30 | RESEARCH   | ATHENS |
+|     40 | PAYROLL    | LONDON |
++--------+------------+--------+
+4 rows in set (0.00 sec)
+
+DESCRIBE EMP;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMPNO    | int         | NO   | PRI | NULL    |       |
+| ENAME    | varchar(14) | YES  |     | NULL    |       |
+| JOB      | varchar(14) | YES  |     | NULL    |       |
+| HIREDATE | date        | YES  |     | NULL    |       |
+| MGR      | int         | YES  |     | NULL    |       |
+| SAL      | int         | YES  |     | NULL    |       |
+| COMM     | int         | YES  |     | NULL    |       |
+| DEPTNO   | int         | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+SELECT * FROM EMP;
++-------+---------+----------+------------+------+------+------+--------+
+| EMPNO | ENAME   | JOB      | HIREDATE   | MGR  | SAL  | COMM | DEPTNO |
++-------+---------+----------+------------+------+------+------+--------+
+|    10 | CODD    | ANALYST  | 1989-01-01 |   15 | 3000 | NULL |     10 |
+|    15 | ELMASRI | ANALYST  | 1995-05-02 |   15 | 1200 |  150 |     10 |
+|    20 | NAVATHE | SALESMAN | 1977-07-07 |   20 | 2000 | NULL |     20 |
+|    30 | DATE    | SALESMAN | 2004-05-04 |   15 | 1800 |  200 |     10 |
++-------+---------+----------+------------+------+------+------+--------+
+4 rows in set (0.00 sec)
+
+DESCRIBE PROJ;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| PROJ_CODE   | int         | NO   | PRI | NULL    |       |
+| DESCRIPTION | varchar(14) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+SELECT * FROM PROJ;
++-----------+-------------+
+| PROJ_CODE | DESCRIPTION |
++-----------+-------------+
+|       100 | PAYROLL     |
+|       200 | PERSONNEL   |
+|       300 | SALES       |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+DESCRIBE ASSIGN;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| EMPNO     | int  | NO   | PRI | NULL    |       |
+| PROJ_CODE | int  | NO   | PRI | NULL    |       |
+| A_TIME    | int  | YES  |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+SELECT * FROM ASSIGN;
++-------+-----------+--------+
+| EMPNO | PROJ_CODE | A_TIME |
++-------+-----------+--------+
+|    10 |       100 |     40 |
+|    10 |       200 |     60 |
+|    15 |       100 |    100 |
+|    20 |       200 |    100 |
+|    30 |       100 |    100 |
++-------+-----------+--------+
+5 rows in set (0.00 sec)
