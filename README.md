@@ -19,7 +19,7 @@ For the Model Diagrams, click the link:
 - **University**: [University of West Attica](https://www.uniwa.gr/)
 - **School**: [School of Engineering](https://www.uniwa.gr/spoydes/scholes-kai-tmimata/feng/)
 - **Department**: [Informatics and Computer Engineering](https://ice.uniwa.gr/)
-- **Lab Instructor**: [Tsolakidis Anastaios](https://ice.uniwa.gr/emd_person/20879/)
+- **Lab Instructor**: [Tsolakidis Anastasios](https://ice.uniwa.gr/emd_person/20879/)
 - **Academic Season**: 2022-2023
 
 ---
