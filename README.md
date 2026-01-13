@@ -162,7 +162,6 @@ INSERT INTO EMP VALUES (104, 'Date', 'Salesman', '2020-04-05', NULL, 4700, 150, 
 ## Verification
 ### Check the schema and data:
 ```sql
-Αντιγραφή κώδικα
 DESCRIBE DEPT;       -- View table structure
 DESCRIBE EMP;
 DESCRIBE PROJ;
