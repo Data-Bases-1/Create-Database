@@ -173,12 +173,6 @@ SELECT * FROM PROJ;
 SELECT * FROM ASSIGN; 
 ```
 
-## How to Use
-1. Initialize Database: Execute `CREATE DATABASE` and `USE new_personnel`;
-2. Build Schema: Run `CREATE TABLE` scripts in the order: `DEPT → EMP → PROJ → ASSIGN` to respect foreign key dependencies.
-3. Populate Data: Execute `INSERT` commands to load the initial dataset.
-4. Verify Data: Use SELECT statements to ensure records are correctly imported. 
-
 ---
 
 # Installation & Setup Guide
