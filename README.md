@@ -1,207 +1,307 @@
-![Flag](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/255px-Flag_of_the_United_Kingdom_%281-2%29.svg.png)
+<p align="center">
+  <img src="https://www.especial.gr/wp-content/uploads/2019/03/panepisthmio-dut-attikhs.png" alt="UNIWA" width="150"/>
+</p>
 
-# Database Management and Modeling in MySQL
-
-For the Assignment, click the link:  
-[Assignment](Assignment/)
-
-For the Documentation, click the link:  
-[Documentation](Documentation/)
-
-For the Model Diagrams, click the link:
-[Models](Models/)
+<p align="center">
+  <strong>UNIVERSITY OF WEST ATTICA</strong><br>
+  SCHOOL OF ENGINEERING<br>
+  DEPARTMENT OF COMPUTER ENGINEERING AND INFORMATICS
+</p>
 
 ---
 
-## Course Information
-- **Course**: [Databases I](https://ice.uniwa.gr/education/undergraduate/courses/database-i/)
-- **Semester**: 4
-- **University**: [University of West Attica](https://www.uniwa.gr/)
-- **School**: [School of Engineering](https://www.uniwa.gr/spoydes/scholes-kai-tmimata/feng/)
-- **Department**: [Informatics and Computer Engineering](https://ice.uniwa.gr/)
-- **Lab Instructor**: [Tsolakidis Anastasios](https://ice.uniwa.gr/emd_person/20879/)
-- **Academic Season**: 2022-2023
+<p align="center">
+  <strong>Databases I</strong>
+</p>
+
+<h1 align="center">
+  Create and Manage a Database
+</h1>
+
+<p align="center">
+  <strong>Vasileios Evangelos Athanasiou</strong><br>
+  Student ID: 19390005
+</p>
+
+<p align="center">
+  <a href="https://github.com/Ath21" target="_blank">GitHub</a> ·
+  <a href="https://www.linkedin.com/in/vasilis-athanasiou-7036b53a4/" target="_blank">LinkedIn</a>
+</p>
+
+<p align="center">
+  Supervisor: Anastasios Tsolakidis, Assistant Professor<br>
+</p>
+
+<p align="center">
+  <a href="https://alis.uniwa.gr/en/profile/anastasios-tsolakidis" target="_blank">UNIWA Profile</a> ·
+  <a href="https://www.linkedin.com/in/tasos-tsolakidis-35493930/" target="_blank">LinkedIn</a>
+</p>
+
+<p align="center">
+  Athens, May 2023
+</p>
 
 ---
 
-## Student Information
-- **Name**: Athanasiou Vasileios Evangelos
-- **Student ID**: 19390005
-- **Status**: Undergraduate
+# Project Overview
+
+This documentation describes the database schema and SQL operations for managing departments, employees, projects, and assignments.
 
 ---
 
-## Assignment Title
-**Title**: Creation and Management of a Database and Database Model
+## Table of Contents
+
+
+| Section | Folder / File | Description |
+|------:|---------------|-------------|
+| 1 | `assign/` | Assignment material |
+| 1.1 | `assign/assignment_01.pdf` | Assignment description (English) |
+| 1.2 | `assign/εργασία_01.pdf` | Assignment description (Greek) |
+| 2 | `docs/` | Theoretical and practical documentation |
+| 2.1 | `docs/Create-Database.txt` | Database creation guide (English) |
+| 2.2 | `docs/Δημιουργία-Βάσης-Δεδομένων.txt` | Database creation guide (Greek) |
+| 3 | `Models/` | Database schema diagrams |
+| 3.1 | `Models/model_01.png` | Schema diagram 1 |
+| 3.2 | `Models/model_02.png` | Schema diagram 2 |
+| 4 | `README.md` | Repository overview and instructions |
 
 ---
 
-## Assignment Overview
-This assignment involves creating and managing a relational database in SQL for a personnel management system. The project requires:
 
-1. Creating a database named `new_personnel`.
-2. Defining and populating four tables: `DEPT`, `EMP`, `PROJ`, and `ASSIGN`.
-3. Using SQL commands to:
-   - Create the database and tables with appropriate constraints.
-   - Insert sample data into each table.
-   - Retrieve and verify data from each table.
-4. Documenting the structure and data within each table.
+## Database Structure
 
----
+The database consists of **four interconnected tables**:
 
-## Objectives
-- Design a database model consisting of four tables:
-  - `DEPT`: Stores department details.
-  - `EMP`: Stores employee details, including relationships with departments.
-  - `PROJ`: Stores project details.
-  - `ASSIGN`: Stores employee assignments to projects.
-- Ensure referential integrity with foreign keys and primary keys.
-- Insert, retrieve, and verify data in each table to demonstrate database functionality.
-- Document commands and outputs for database creation and data verification.
+### 1. Departments (DEPT)
+Stores information about company departments.
+
+- **Primary Key:** `DEPTNO`  
+- **Fields:** `DEPTNO`, `DNAME` (Name), `LOC` (Location)  
 
 ---
 
-## Key Features
-- **Database Creation**: SQL commands create a database called `new_personnel`.
-- **Table Structure**: Each table has defined fields, data types, and primary/foreign keys:
-  - `DEPT`: Department details, keyed by `DEPTNO`.
-  - `EMP`: Employee details with a foreign key relationship to `DEPT`.
-  - `PROJ`: Project details.
-  - `ASSIGN`: Assignment of employees to projects, keyed by `EMPNO` and `PROJ_CODE`.
-- **Data Insertion**: Sample data is provided for departments, employees, projects, and assignments.
-- **Data Retrieval**: Commands retrieve all records to verify data entry.
+### 2. Employees (EMP)
+Maintains records for all personnel.
+
+- **Primary Key:** `EMPNO`  
+- **Foreign Key:** `DEPTNO` (references `DEPT`)  
+- **Fields:** `EMPNO`, `ENAME`, `JOB`, `HIREDATE`, `MGR` (Manager ID), `SAL` (Salary), `COMM` (Commission), `DEPTNO`  
 
 ---
 
-## Program Structure
-1. **Database Initialization**  
-   - Commands to create `new_personnel` database and switch to it.
-   - Commands to define tables and relationships among `DEPT`, `EMP`, `PROJ`, and `ASSIGN`.
+### 3. Projects (PROJ)
+Lists specific projects within the organization.
 
-2. **Table Definition and Data Insertion**  
-   - SQL commands to define each table with field constraints, primary keys, and foreign key relationships.
-   - Insertion of sample data into each table, ensuring entries adhere to referential integrity.
-
-3. **Data Verification**  
-   - Commands for `DESCRIBE` and `SELECT` statements to verify table structures and inserted data.
+- **Primary Key:** `PROJ_CODE`  
+- **Fields:** `PROJ_CODE`, `DESCRIPTION`  
 
 ---
 
-## Requirements
-- **Database System**: MySQL or compatible relational database management system.
-- **Software**: Any SQL client for executing commands and querying data.
+### 4. Assignments (ASSIGN)
+Junction table tracking employee project assignments.
+
+- **Primary Key:** Composite Key (`EMPNO`, `PROJ_CODE`)  
+- **Foreign Keys:**  
+  - `EMPNO` (references `EMP`)  
+  - `PROJ_CODE` (references `PROJ`)  
+- **Fields:** `EMPNO`, `PROJ_CODE`, `A_TIME` (Assigned Time)  
 
 ---
 
-## Installation and Usage
-To replicate this project on your local setup, follow these steps:
+## Core SQL Operations
+
+### Data Definition (DDL)
+Commands to create the database and table schemas:
+
+```sql
+CREATE DATABASE IF NOT EXISTS new_personnel;
+
+CREATE TABLE DEPT (
+    DEPTNO INT PRIMARY KEY,
+    DNAME VARCHAR(50),
+    LOC VARCHAR(50)
+);
+
+CREATE TABLE EMP (
+    EMPNO INT PRIMARY KEY,
+    ENAME VARCHAR(50),
+    JOB VARCHAR(50),
+    HIREDATE DATE,
+    MGR INT,
+    SAL DECIMAL(10,2),
+    COMM DECIMAL(10,2),
+    DEPTNO INT,
+    FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO)
+);
+
+CREATE TABLE PROJ (
+    PROJ_CODE INT PRIMARY KEY,
+    DESCRIPTION VARCHAR(100)
+);
+
+CREATE TABLE ASSIGN (
+    EMPNO INT,
+    PROJ_CODE INT,
+    A_TIME INT,
+    PRIMARY KEY (EMPNO, PROJ_CODE),
+    FOREIGN KEY (EMPNO) REFERENCES EMP(EMPNO),
+    FOREIGN KEY (PROJ_CODE) REFERENCES PROJ(PROJ_CODE)
+);
+```
+
+## Data Manipulation (DML)
+### Sample data insertion:
+
+```sql
+INSERT INTO EMP VALUES (101, 'Codd', 'Analyst', '2020-01-10', NULL, 5000, NULL, 10);
+INSERT INTO EMP VALUES (102, 'Elmasri', 'Analyst', '2020-02-15', NULL, 5200, NULL, 10);
+INSERT INTO EMP VALUES (103, 'Navathe', 'Salesman', '2020-03-20', NULL, 4800, 200, 20);
+INSERT INTO EMP VALUES (104, 'Date', 'Salesman', '2020-04-05', NULL, 4700, 150, 10);
+```
+
+## Verification
+### Check the schema and data:
+```sql
+Αντιγραφή κώδικα
+DESCRIBE DEPT;       -- View table structure
+DESCRIBE EMP;
+DESCRIBE PROJ;
+DESCRIBE ASSIGN;
+
+SELECT * FROM DEPT;   -- View all records
+SELECT * FROM EMP;
+SELECT * FROM PROJ;
+SELECT * FROM ASSIGN; 
+```
+
+## How to Use
+1. Initialize Database: Execute `CREATE DATABASE` and `USE new_personnel`;
+2. Build Schema: Run `CREATE TABLE` scripts in the order: `DEPT → EMP → PROJ → ASSIGN` to respect foreign key dependencies.
+3. Populate Data: Execute `INSERT` commands to load the initial dataset.
+4. Verify Data: Use SELECT statements to ensure records are correctly imported. 
+
+---
+
+# Installation & Setup Guide
+
+This repository contains a **relational database creation and management project** developed for the **Databases I (Database Management)** course at the **University of West Attica (UNIWA)**.  
+The focus is on creating a sample SQL database, defining tables, inserting sample data, and verifying correct operation.
+
+---
+
+## Prerequisites
+
+To run and explore this project locally, you need:
+
+### 1. Database Management System (DBMS)
+- **MySQL** (recommended)
+- Any SQL server that supports standard SQL (MariaDB, PostgreSQL with minor adjustments)
+
+Install a local MySQL server or use an online SQL sandbox.
+
+### 2. SQL Client
+A tool to execute SQL commands:
+- MySQL Workbench
+- phpMyAdmin
+- DBeaver
+- Command‑line MySQL client
+
+Ensure your SQL client is connected to your MySQL server.
+
+---
+
+## Installation
 
 ### 1. Clone the Repository
-Download the repository to your local machine:
-```
+
+Open a terminal/command prompt and run:
+
+```bash
 git clone https://github.com/Data-Bases-1/Create-Database.git
 ```
 
-![Σημαία](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Greece.svg/255px-Flag_of_Greece.svg.png)
+#### Alternative (Without Git)
 
-# Διαχείριση και Μοντελοποίηση Βάσεων Δεδομένων σε MySQL
-
-Για την Εργασία, κάντε κλικ στον σύνδεσμο:  
-[Assignment](Assignment/)
-
-Για την Τεκμηρίωση, κάντε κλικ στον σύνδεσμο:  
-[Documentation](Documentation/)
-
-Για τα Μοντέλα Διαγραμμάτων, κάντε κλικ στον σύνδεσμο:
-[Models](Models/)
+- Open the repository URL in your browser
+- Click Code → Download ZIP
+- Extract the ZIP file to a local directory
 
 ---
 
-## Πληροφορίες Μαθήματος
-- **Μάθημα**: [Βάσεις Δεδομένων I](https://ice.uniwa.gr/education/undergraduate/courses/database-i/)
-- **Εξάμηνο**: 4ο
-- **Πανεπιστήμιο**: [Πανεπιστήμιο Δυτικής Αττικής](https://www.uniwa.gr/)
-- **Σχολή**: [Σχολή Μηχανικών](https://www.uniwa.gr/spoydes/scholes-kai-tmimata/feng/)
-- **Τμήμα**: [Πληροφορικής και Μηχανικών Υπολογιστών](https://ice.uniwa.gr/)
-- **Εργαστηριακός Υπεύθυνος**: [Αναστάσιος Τσολακίδης](https://ice.uniwa.gr/emd_person/20879/)
-- **Ακαδημαϊκό Έτος**: 2022-2023
+## Setting Up the Database
+### 2. Open the SQL Files
 
----
-
-## Στοιχεία Φοιτητή
-- **Όνομα**: Αθανασίου Βασίλειος Ευάγγελος
-- **Αριθμός Μητρώου**: 19390005
-- **Κατάσταση**: Προπτυχιακός
-
----
-
-## Τίτλος Εργασίας
-**Τίτλος**: Δημιουργία και Διαχείριση Βάσης Δεδομένων και Μοντέλου Βάσης Δεδομένων
-
----
-
-## Περιγραφή Εργασίας
-Η εργασία περιλαμβάνει τη δημιουργία και διαχείριση μιας σχεσιακής βάσης δεδομένων σε SQL για σύστημα διαχείρισης προσωπικού. Οι απαιτήσεις του έργου είναι οι εξής:
-
-1. Δημιουργία μιας βάσης δεδομένων με όνομα `new_personnel`.
-2. Ορισμός και συμπλήρωση τεσσάρων πινάκων: `DEPT`, `EMP`, `PROJ`, και `ASSIGN`.
-3. Χρήση εντολών SQL για:
-   - Δημιουργία της βάσης και των πινάκων με κατάλληλους περιορισμούς.
-   - Εισαγωγή παραδειγματικών δεδομένων σε κάθε πίνακα.
-   - Ανάκτηση και επαλήθευση δεδομένων από κάθε πίνακα.
-4. Τεκμηρίωση της δομής και των δεδομένων σε κάθε πίνακα.
-
----
-
-## Στόχοι
-- Σχεδίαση ενός μοντέλου βάσης δεδομένων που αποτελείται από τέσσερις πίνακες:
-  - `DEPT`: Αποθήκευση στοιχείων τμημάτων.
-  - `EMP`: Αποθήκευση στοιχείων εργαζομένων και σχέσεις με τα τμήματα.
-  - `PROJ`: Αποθήκευση στοιχείων έργων.
-  - `ASSIGN`: Αποθήκευση αναθέσεων εργαζομένων σε έργα.
-- Διασφάλιση αναφορικής ακεραιότητας με ξένους και πρωτεύοντες κλειδιά.
-- Εισαγωγή, ανάκτηση και επαλήθευση δεδομένων σε κάθε πίνακα για επίδειξη της λειτουργικότητας της βάσης.
-- Τεκμηρίωση εντολών και αποτελεσμάτων για τη δημιουργία και επαλήθευση της βάσης δεδομένων.
-
----
-
-## Κύρια Χαρακτηριστικά
-- **Δημιουργία Βάσης Δεδομένων**: Εντολές SQL για δημιουργία της βάσης `new_personnel`.
-- **Δομή Πινάκων**: Κάθε πίνακας έχει καθορισμένα πεδία, τύπους δεδομένων και πρωτεύοντα/ξένα κλειδιά:
-  - `DEPT`: Λεπτομέρειες τμημάτων, με πρωτεύον κλειδί το `DEPTNO`.
-  - `EMP`: Λεπτομέρειες εργαζομένων με ξένο κλειδί που αναφέρεται στον πίνακα `DEPT`.
-  - `PROJ`: Λεπτομέρειες έργων.
-  - `ASSIGN`: Ανάθεση εργαζομένων σε έργα, με πρωτεύον κλειδί τα `EMPNO` και `PROJ_CODE`.
-- **Εισαγωγή Δεδομένων**: Παραδειγματικά δεδομένα παρέχονται για τμήματα, εργαζόμενους, έργα και αναθέσεις.
-- **Ανάκτηση Δεδομένων**: Εντολές για την ανάκτηση όλων των εγγραφών για την επαλήθευση των δεδομένων.
-
----
-
-## Δομή Προγράμματος
-1. **Αρχικοποίηση Βάσης Δεδομένων**  
-   - Εντολές για δημιουργία της βάσης `new_personnel` και εναλλαγή σε αυτήν.
-   - Εντολές για ορισμό πινάκων και σχέσεων μεταξύ των πινάκων `DEPT`, `EMP`, `PROJ`, και `ASSIGN`.
-
-2. **Ορισμός Πινάκων και Εισαγωγή Δεδομένων**  
-   - Εντολές SQL για τον ορισμό κάθε πίνακα με περιορισμούς στα πεδία, πρωτεύοντα κλειδιά και ξένα κλειδιά.
-   - Εισαγωγή παραδειγματικών δεδομένων σε κάθε πίνακα, διασφαλίζοντας ότι οι εγγραφές πληρούν τους κανόνες αναφορικής ακεραιότητας.
-
-3. **Επαλήθευση Δεδομένων**  
-   - Εντολές `DESCRIBE` και `SELECT` για επαλήθευση της δομής των πινάκων και των δεδομένων που έχουν εισαχθεί.
-
----
-
-## Απαιτήσεις
-- **Σύστημα Βάσης Δεδομένων**: MySQL ή συμβατό σύστημα διαχείρισης σχεσιακών βάσεων δεδομένων.
-- **Λογισμικό**: Οποιοσδήποτε SQL client για την εκτέλεση εντολών και την αναζήτηση δεδομένων.
-
----
-
-## Εγκατάσταση και Χρήση
-Για να αναπαράγετε αυτό το έργο στον τοπικό σας υπολογιστή, ακολουθήστε τα παρακάτω βήματα:
-
-### 1. Κλωνοποιήστε το Αποθετήριο
-Κατεβάστε το αποθετήριο στον τοπικό σας υπολογιστή:
+Navigate into the project:
+```bash
+Create-Database/
 ```
-git clone https://github.com/Data-Bases-1/Create-Database.git
+Inside, you will find:
+- SQL scripts that create the database and tables
+- INSERT statements to populate sample data
+- SELECT and DESCRIBE commands to validate contents
+
+### 3. Execute SQL Scripts
+In your SQL client:
+1. Open a new SQL editor session
+2. Load the SQL script(s) that define:
+   - Creation of the database (CREATE DATABASE)
+   - Table definitions (DEPT, EMP, PROJ, ASSIGN)
+   - Insertion of sample data
+3. Run the full script
+
+#### Example workflow in a MySQL client:
+```sql
+-- Create the database
+CREATE DATABASE new_personnel;
+
+-- Switch to it
+USE new_personnel;
+
+-- Create tables and constraints
+-- (table definitions here)
+
+-- Insert sample records
+-- (INSERT statements here)
+
+-- Verify data
+SELECT * FROM DEPT;
+SELECT * FROM EMP;
+SELECT * FROM PROJ;
+SELECT * FROM ASSIGN;
 ```
+If you’re using a SQL file, most clients allow:
+```bash
+SOURCE path/to/sql-file.sql;
+```
+
+---
+
+## Verification
+
+After executing the scripts:
+
+### Verify Tables
+```sql
+DESCRIBE DEPT;
+DESCRIBE EMP;
+DESCRIBE PROJ;
+DESCRIBE ASSIGN;
+```
+
+### Check Sample Records
+```sql
+SELECT COUNT(*) FROM DEPT;
+SELECT COUNT(*) FROM EMP;
+SELECT COUNT(*) FROM PROJ;
+SELECT COUNT(*) FROM ASSIGN;
+```
+
+Correct execution should return no errors, and counts should reflect inserted sample data.
+
+---
+
+## Open the Documentation
+1. Navigate to the `docs/` directory
+2. Open the report corresponding to your preferred language:
+    - English: `Create-Database.txt`
+    - Greek: `Δημιουργία-Βάσης-Δεδομένων.txt`
